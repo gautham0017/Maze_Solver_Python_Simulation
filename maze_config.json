@@ -1,0 +1,52 @@
+{
+    "maze_size": 8,
+
+    "start": {
+        "row": 0,
+        "col": 0,
+        "heading": "EAST"
+    },
+
+    "goal": {
+        "rows": [7],
+        "cols": [7]
+    },
+
+    "walls": [
+
+        { "row":0, "col":0, "direction":"SOUTH" },
+        { "row":0, "col":2, "direction":"SOUTH" },
+        { "row":0, "col":3, "direction":"EAST" },
+        { "row":0, "col":5, "direction":"SOUTH" },
+
+        { "row":1, "col":1, "direction":"EAST" },
+        { "row":1, "col":2, "direction":"SOUTH" },
+        { "row":1, "col":4, "direction":"EAST" },
+        { "row":1, "col":6, "direction":"SOUTH" },
+
+        { "row":2, "col":0, "direction":"EAST" },
+        { "row":2, "col":1, "direction":"SOUTH" },
+        { "row":2, "col":3, "direction":"SOUTH" },
+        { "row":2, "col":5, "direction":"EAST" },
+
+        { "row":3, "col":1, "direction":"EAST" },
+        { "row":3, "col":2, "direction":"SOUTH" },
+        { "row":3, "col":4, "direction":"EAST" },
+        { "row":3, "col":6, "direction":"SOUTH" },
+
+        { "row":4, "col":0, "direction":"SOUTH" },
+        { "row":4, "col":3, "direction":"EAST" },
+        { "row":4, "col":5, "direction":"SOUTH" },
+
+        { "row":5, "col":1, "direction":"SOUTH" },
+        { "row":5, "col":2, "direction":"EAST" },
+        { "row":5, "col":4, "direction":"SOUTH" },
+        { "row":5, "col":6, "direction":"EAST" },
+
+        { "row":6, "col":0, "direction":"EAST" },
+        { "row":6, "col":2, "direction":"SOUTH" },
+        { "row":6, "col":3, "direction":"EAST" },
+        { "row":6, "col":5, "direction":"SOUTH" }
+
+    ]
+}
