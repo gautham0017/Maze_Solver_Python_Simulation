@@ -12,7 +12,6 @@ class MPU:
         return True
 
     def calibrate(self, samples=1000):
-        # No calibration needed in simulation
         return True
 
     def update(self):
@@ -28,11 +27,6 @@ class MPU:
         self.heading = self.normalizeAngle(angle)
 
     def rotate(self, angle):
-        """
-        Rotate the virtual robot by 'angle' degrees.
-        Positive -> clockwise
-        Negative -> counter-clockwise
-        """
         self.heading = self.normalizeAngle(self.heading + angle)
 
     @staticmethod
