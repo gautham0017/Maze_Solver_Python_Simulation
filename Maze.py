@@ -14,7 +14,6 @@ class Cell:
     wall: list = field(default_factory=lambda: [False] * 4)
     visited: bool = False
     flood: int = 255
-
 maze = [[Cell() for _ in range(MAZE_SIZE)] for _ in range(MAZE_SIZE)]
 
 dr = (-1, 0, 1, 0)
@@ -74,16 +73,7 @@ def hasWall(row, col, direction):
         return True
     return maze[row][col].wall[direction.value]
 def loadMaze(walls):
-    """
-    walls is a list like:
-    [
-        (row, col, Direction.NORTH),
-        (row, col, Direction.EAST),
-        ...
-    ]
-    """
     initializeMaze()
-
     for row, col, direction in walls:
         setWall(row, col, direction)
 
@@ -93,15 +83,11 @@ def isGoal(row, col):
 def removeWall(row, col, direction):
     if not isInsideMaze(row, col):
         return
-
     maze[row][col].wall[direction.value] = False
-
     nr = row + dr[direction.value]
     nc = col + dc[direction.value]
-
     if not isInsideMaze(nr, nc):
         return
-
     opposite = Direction((direction.value + 2) % 4)
     maze[nr][nc].wall[opposite.value] = False
 
@@ -117,33 +103,23 @@ def resetFlood():
 
 def getNeighbors(row, col):
     neighbors = []
-
     for direction in Direction:
         nr = row + dr[direction.value]
         nc = col + dc[direction.value]
-
         if isInsideMaze(nr, nc):
             neighbors.append((nr, nc, direction))
-
     return neighbors
 
 def loadMazeFromJSON(filename):
     with open(filename) as f:
         config = json.load(f)
-
     initializeMaze()
-
     for wall in config["walls"]:
         direction = Direction[wall["direction"]]
-        setWall(
-            wall["row"],
-            wall["col"],
-            direction
-        )
+        setWall(wall["row"],wall["col"],direction)
 
 def printMaze():
     for r in range(MAZE_SIZE):
-        # Top walls
         for c in range(MAZE_SIZE):
             print("+", end="")
             if maze[r][c].wall[Direction.NORTH.value]:
@@ -151,24 +127,19 @@ def printMaze():
             else:
                 print("   ", end="")
         print("+")
-
-        # Side walls
         for c in range(MAZE_SIZE):
             if maze[r][c].wall[Direction.WEST.value]:
                 print("|", end="")
             else:
                 print(" ", end="")
-
             if maze[r][c].visited:
                 print(" . ", end="")
             else:
                 print("   ", end="")
-
         if maze[r][MAZE_SIZE-1].wall[Direction.EAST.value]:
             print("|")
         else:
             print()
-
     for c in range(MAZE_SIZE):
         print("+---", end="")
     print("+")
