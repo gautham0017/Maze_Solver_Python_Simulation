@@ -4,10 +4,8 @@
 # so that the robot can accurately detect walls, update its internal map, and make intelligent navigation decisions.
 
 from dataclasses import dataclass
-
 from Config import Direction
 from Maze import maze
-
 
 @dataclass
 class ScanResult:
@@ -15,9 +13,7 @@ class ScanResult:
     front: int = 0
     right: int = 0
 
-
 class ServoScanner:
-
     WALL_DISTANCE = 50
     OPEN_DISTANCE = 1000
 
@@ -25,13 +21,8 @@ class ServoScanner:
         self.robot = None
 
     def begin(self, robot=None):
-        """
-        Store a reference to the robot.
-        """
         self.robot = robot
         return True
-
-
 
     def wallToDistance(self, wall):
         if wall:
@@ -40,79 +31,30 @@ class ServoScanner:
 
     def scan_(self):
         if self.robot is None:
-            return ScanResult(
-            self.OPEN_DISTANCE,
-            self.OPEN_DISTANCE,
-            self.OPEN_DISTANCE
-        )
+            return ScanResult(self.OPEN_DISTANCE,self.OPEN_DISTANCE,self.OPEN_DISTANCE)
 
     def scan(self):
-
         result = ScanResult()
-
         row = self.robot.row
         col = self.robot.col
         heading = self.robot.heading
-
         cell = maze[row][col]
-
         if heading == Direction.NORTH:
-
-            result.left = self.wallToDistance(
-                cell.wall[Direction.WEST.value]
-            )
-
-            result.front = self.wallToDistance(
-                cell.wall[Direction.NORTH.value]
-            )
-
-            result.right = self.wallToDistance(
-                cell.wall[Direction.EAST.value]
-            )
-
+            result.left = self.wallToDistance(cell.wall[Direction.WEST.value])
+            result.front = self.wallToDistance(cell.wall[Direction.NORTH.value])
+            result.right = self.wallToDistance(cell.wall[Direction.EAST.value])
         elif heading == Direction.EAST:
-
-            result.left = self.wallToDistance(
-                cell.wall[Direction.NORTH.value]
-            )
-
-            result.front = self.wallToDistance(
-                cell.wall[Direction.EAST.value]
-            )
-
-            result.right = self.wallToDistance(
-                cell.wall[Direction.SOUTH.value]
-            )
-
+            result.left = self.wallToDistance(cell.wall[Direction.NORTH.value])
+            result.front = self.wallToDistance(cell.wall[Direction.EAST.value])
+            result.right = self.wallToDistance(cell.wall[Direction.SOUTH.value])
         elif heading == Direction.SOUTH:
-
-            result.left = self.wallToDistance(
-                cell.wall[Direction.EAST.value]
-            )
-
-            result.front = self.wallToDistance(
-                cell.wall[Direction.SOUTH.value]
-            )
-
-            result.right = self.wallToDistance(
-                cell.wall[Direction.WEST.value]
-            )
-
+            result.left = self.wallToDistance(cell.wall[Direction.EAST.value])
+            result.front = self.wallToDistance(cell.wall[Direction.SOUTH.value])
+            result.right = self.wallToDistance(cell.wall[Direction.WEST.value])
         elif heading == Direction.WEST:
-
-            result.left = self.wallToDistance(
-                cell.wall[Direction.SOUTH.value]
-            )
-
-            result.front = self.wallToDistance(
-                cell.wall[Direction.WEST.value]
-            )
-
-            result.right = self.wallToDistance(
-                cell.wall[Direction.NORTH.value]
-            )
-
+            result.left = self.wallToDistance(cell.wall[Direction.SOUTH.value])
+            result.front = self.wallToDistance(cell.wall[Direction.WEST.value])
+            result.right = self.wallToDistance(cell.wall[Direction.NORTH.value])
         return result
-
 
 scanner = ServoScanner()
