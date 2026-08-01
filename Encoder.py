@@ -11,10 +11,8 @@ class Encoder:
     def __init__(self, encoderA=0, encoderB=0, wheelDiaMM=0.0, ticksPerRev=1):
         self.pinA = encoderA
         self.pinB = encoderB
-
         self.wheelDiameter = wheelDiaMM
         self.ticksPerRevolution = ticksPerRev
-
         self.ticks = 0
 
     def begin(self):
@@ -64,15 +62,7 @@ class Encoder:
         revolutions = distanceMM / circumference
         self.ticks = int(revolutions * self.ticksPerRevolution)
 
-
 from Config import WHEEL_DIAMETER_MM, TICKS_PER_REV
 
-leftEncoder = Encoder(
-    wheelDiaMM=WHEEL_DIAMETER_MM,
-    ticksPerRev=TICKS_PER_REV
-)
-
-rightEncoder = Encoder(
-    wheelDiaMM=WHEEL_DIAMETER_MM,
-    ticksPerRev=TICKS_PER_REV
-)
+leftEncoder = Encoder(wheelDiaMM=WHEEL_DIAMETER_MM,ticksPerRev=TICKS_PER_REV)
+rightEncoder = Encoder(wheelDiaMM=WHEEL_DIAMETER_MM,ticksPerRev=TICKS_PER_REV)
