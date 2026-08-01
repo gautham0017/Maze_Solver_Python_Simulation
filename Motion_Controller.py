@@ -8,7 +8,6 @@ from MPU import MPU
 from TurnController import turnController
 
 class MotionController:
-
     def __init__(self):
         self.robot = None
         self.leftEncoder = leftEncoder
@@ -19,7 +18,6 @@ class MotionController:
         self.travelledDistance = 0
 
     def begin(self, robot):
-
         self.robot = robot
         self.imu = robot.imu
         self.leftEncoder.begin()
