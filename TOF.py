@@ -5,37 +5,26 @@
 
 from collections import deque
 from statistics import median
-
 from collections import deque
 from statistics import median
-
 from Config import WALL_THRESHOLD
 
-# Distance values used in the simulator
 WALL_DISTANCE = 50      # Wall detected
 OPEN_DISTANCE = 1000    # No wall
 
-
 class TOFSensor:
     FILTER_SIZE = 5
-
     def __init__(self):
         self.lastDistance = OPEN_DISTANCE
         self.initialized = False
         self.timeout = False
-        self.samples = deque(
-            [OPEN_DISTANCE] * self.FILTER_SIZE,
-            maxlen=self.FILTER_SIZE
-        )
+        self.samples = deque([OPEN_DISTANCE] * self.FILTER_SIZE,maxlen=self.FILTER_SIZE)
 
     def begin(self):
         self.initialized = True
         return True
 
     def setDistance(self, distance):
-        """
-        Called by the virtual sensor system.
-        """
         self.lastDistance = distance
         self.samples.append(distance)
         self.timeout = False
@@ -49,7 +38,6 @@ class TOFSensor:
     def setDistance(self, distance):
         if not self.initialized:
             return
-
         self.lastDistance = distance
         self.samples.append(distance)
         self.timeout = False
@@ -68,11 +56,7 @@ class TOFSensor:
 
     def reset(self):
         self.lastDistance = OPEN_DISTANCE
-        self.samples = deque(
-            [OPEN_DISTANCE] * self.FILTER_SIZE,
-            maxlen=self.FILTER_SIZE
-        )
+        self.samples = deque([OPEN_DISTANCE] * self.FILTER_SIZE,maxlen=self.FILTER_SIZE)
         self.timeout = False
-
 
 tof = TOFSensor()
