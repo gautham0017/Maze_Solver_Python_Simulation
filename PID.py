@@ -4,22 +4,16 @@
 # and navigates the maze with the precision required for successful exploration and fast speed runs.
 
 class PIDController:
-
     def __init__(self, kp=0.0, ki=0.0, kd=0.0):
-        
         self.kp = kp
         self.ki = ki
         self.kd = kd
-
         self.error = 0.0
         self.previousError = 0.0
-
         self.integral = 0.0
         self.derivative = 0.0
-
         self.minOutput = -255.0
         self.maxOutput = 255.0
-
         self.integralMin = -1000.0
         self.integralMax = 1000.0
 
@@ -33,7 +27,6 @@ class PIDController:
         self.integral += self.error * dt
         self.integral = max(self.integralMin,min(self.integral, self.integralMax))
         self.derivative = (self.error - self.previousError) / dt
-
         output = (self.kp * self.error +self.ki * self.integral +self.kd * self.derivative)
         output = max(self.minOutput,min(output, self.maxOutput))
         self.previousError = self.error
