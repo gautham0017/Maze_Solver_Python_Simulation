@@ -5,13 +5,7 @@
 
 from Config import Direction
 
-
 class TurnController:
-    """
-    Virtual Turn Controller for simulation.
-    Turns are instantaneous.
-    """
-
     def __init__(self):
         self.robot = None
 
@@ -22,29 +16,20 @@ class TurnController:
     def turnLeft90(self):
         if self.robot is None:
             return True
-
-        self.robot.heading = Direction(
-            (self.robot.heading.value + 3) % 4
-        )
+        self.robot.heading = Direction((self.robot.heading.value + 3) % 4)
         return True
 
     def turnRight90(self):
         if self.robot is None:
             return True
 
-        self.robot.heading = Direction(
-            (self.robot.heading.value + 1) % 4
-        )
+        self.robot.heading = Direction((self.robot.heading.value + 1) % 4)
         return True
 
     def turnAround(self):
         if self.robot is None:
             return True
-
-        self.robot.heading = Direction(
-            (self.robot.heading.value + 2) % 4
-        )
+        self.robot.heading = Direction((self.robot.heading.value + 2) % 4)
         return True
-
 
 turnController = TurnController()
