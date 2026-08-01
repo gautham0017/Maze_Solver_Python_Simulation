@@ -134,7 +134,6 @@ class Navigation:
             NavigationState.NAV_FINISHED:
                 "FINISHED"
         }
-
         print("State    :",state_names[self.state])
         print()
 
@@ -145,34 +144,24 @@ class Navigation:
             print("Center Reached")
             self.state = (NavigationState.NAV_RETURN_HOME)
             return
-        direction = self.flood.getBestDirection(
-            self.robot.row,
-            self.robot.col
-        )
+        direction = self.flood.getBestDirection(self.robot.row,self.robot.col)
         self.rotateTo(direction)
         self.moveOneCell()
  
     def returnStep(self):
-        self.sensors.scanWalls(
-            self.robot.row,
-            self.robot.col,
-            self.robot.heading
-        )
+        self.sensors.scanWalls(self.robot.row,self.robot.col,self.robot.heading)
         self.flood.updateFloodValues()
         if (self.robot.row == MAZE_SIZE - 1 and self.robot.col == 0):
             print("Returned Home")
             self.state = (NavigationState.NAV_FAST_RUN_READY)
             return
-
         direction = self.flood.getBestDirection(self.robot.row,self.robot.col)
         self.rotateTo(direction)
         self.moveOneCell()
 
     def fastRunStep(self):
         print("Fast Run Mode")
-        self.state = (
-            NavigationState.NAV_FINISHED
-        )
+        self.state = (NavigationState.NAV_FINISHED)
 
     def update(self):
         if self.state == NavigationState.NAV_EXPLORE:
@@ -181,12 +170,9 @@ class Navigation:
             self.returnStep()
         elif self.state == NavigationState.NAV_FAST_RUN_READY:
             print("Preparing Fast Run")
-            self.state = (
-                NavigationState.NAV_FAST_RUN
-            )
+            self.state = (NavigationState.NAV_FAST_RUN)
         elif self.state == NavigationState.NAV_FAST_RUN:
             self.fastRunStep()
         elif self.state == NavigationState.NAV_FINISHED:
             self.motion.stop()
-
 navigation = Navigation()
