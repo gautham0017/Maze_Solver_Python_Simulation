@@ -61,10 +61,6 @@ class RobotState(Enum):
     TURN_BACK = 7
     SPEED_RUN = 8
 
-# -----------------------------
-# Simulator Settings
-# -----------------------------
-
 CELL_SIZE_PIXELS = 60
 
 WINDOW_WIDTH = MAZE_SIZE * CELL_SIZE_PIXELS
@@ -75,3 +71,8 @@ ROBOT_RADIUS = 18
 
 GOAL_ROW = 7
 GOAL_COL = 7
+
+INFO_PANEL_HEIGHT = 120
+
+WINDOW_WIDTH = MAZE_SIZE * CELL_SIZE_PIXELS
+WINDOW_HEIGHT = INFO_PANEL_HEIGHT + MAZE_SIZE * CELL_SIZE_PIXELS + INFO_PANEL_HEIGHT
