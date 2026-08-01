@@ -5,7 +5,6 @@
 # avoid dead ends, and efficiently navigate to the maze center.
 
 from collections import deque
-
 from Config import MAZE_SIZE, Direction
 from Maze import (maze,initializeMaze,initializeFlood,printFlood)
 from Maze import resetFlood
@@ -46,7 +45,6 @@ class FloodFill:
         self.clearQueue()
         maze[GOAL_ROW][GOAL_COL].flood = 0
         self.enqueue(GOAL_ROW, GOAL_COL)
-
         while not self.isQueueEmpty():
             row, col = self.dequeue()
             currentFlood = maze[row][col].flood
@@ -62,41 +60,29 @@ class FloodFill:
                     self.enqueue(nr, nc)
 
     def getBestDirection(self, row, col):
-        bestFlood = maze[row][col].flood
         bestDirection = None
-
+        bestFlood = 100000
         for direction in Direction:
             if not self.canMove(row, col, direction):
                 continue
-
             nr = row + dr[direction.value]
             nc = col + dc[direction.value]
-
             if not self.isValidCell(nr, nc):
                 continue
-
-            if maze[nr][nc].flood < bestFlood:
-                bestFlood = maze[nr][nc].flood
+            value = maze[nr][nc].flood
+            if value < bestFlood:
+                bestFlood = value
                 bestDirection = direction
         return bestDirection
 
     def reachedGoal(self, row, col):
-        center1 = MAZE_SIZE // 2 - 1
-        center2 = MAZE_SIZE // 2
-        return (row, col) in [
-    (center1, center1),
-    (center1, center2),
-    (center2, center1),
-    (center2, center2)
-]
+        return row == GOAL_ROW and col == GOAL_COL
+    
     def isSolved(self, row, col):
         return self.reachedGoal(row, col)
 
     def printCurrentCell(self, row, col):
-        print(
-        f"Cell ({row},{col}) Flood =",
-        maze[row][col].flood
-    )
+        print(f"Cell ({row},{col}) Flood =",maze[row][col].flood)
 
     def getPath(self, row, col):
         path = []
